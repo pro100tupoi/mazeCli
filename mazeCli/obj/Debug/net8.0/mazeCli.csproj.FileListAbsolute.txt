@@ -1,0 +1,15 @@
+C:\Users\User\RiderProjects\mazeCli\mazeCli\bin\Debug\net8.0\mazeCli.exe
+C:\Users\User\RiderProjects\mazeCli\mazeCli\bin\Debug\net8.0\mazeCli.deps.json
+C:\Users\User\RiderProjects\mazeCli\mazeCli\bin\Debug\net8.0\mazeCli.runtimeconfig.json
+C:\Users\User\RiderProjects\mazeCli\mazeCli\bin\Debug\net8.0\mazeCli.dll
+C:\Users\User\RiderProjects\mazeCli\mazeCli\bin\Debug\net8.0\mazeCli.pdb
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.AssemblyInfoInputs.cache
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.AssemblyInfo.cs
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.csproj.CoreCompileInputs.cache
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.sourcelink.json
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.dll
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\refint\mazeCli.dll
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.pdb
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\mazeCli.genruntimeconfig.cache
+C:\Users\User\RiderProjects\mazeCli\mazeCli\obj\Debug\net8.0\ref\mazeCli.dll
