@@ -21,8 +21,8 @@ public class Player
 
     public bool Move(char direction)
     {
-        int newX = Position.X;
-        int newY = Position.Y;
+        var newX = Position.X;
+        var newY = Position.Y;
 
         switch (direction)
         {

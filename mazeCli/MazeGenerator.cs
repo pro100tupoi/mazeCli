@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace mazeCli;
 
 public class MazeGenerator
@@ -28,16 +25,16 @@ public class MazeGenerator
 
     public CellType[,] GenerateMaze()
     {
-        // Шаг 1: Создаем идеальный лабиринт алгоритмом Прима
+        // Создаем идеальный лабиринт алгоритмом Прима
         GeneratePerfectMaze();
 
-        // Шаг 2: Добавляем вход и выход на границах с гарантией доступности
+        // Добавляем вход и выход на границах с гарантией доступности
         AddStartAndEndOnBorders();
 
-        // Шаг 3: Минимальное удаление тупиков для лучшего заполнения
+        // Минимальное удаление тупиков для лучшего заполнения
         RemoveSomeDeadEnds();
 
-        // Шаг 4: Гарантируем доступность входа и выхода
+        // Гарантируем доступность входа и выхода
         EnsureAccessibility();
 
         return map;
@@ -46,17 +43,17 @@ public class MazeGenerator
     private void GeneratePerfectMaze()
     {
         // Создаем массив и заполняем все ячейки стенами
-        for (int h = 0; h < height; h++)
+        for (var h = 0; h < height; h++)
         {
-            for (int w = 0; w < width; w++)
+            for (var w = 0; w < width; w++)
             {
                 map[w, h] = CellType.Wall;
             }
         }
 
         // Выбираем случайную ячейку с нечетными координатами и очищаем её
-        int x = (random.Next(0, width / 2)) * 2 + 1;
-        int y = (random.Next(0, height / 2)) * 2 + 1;
+        var x = (random.Next(0, width / 2)) * 2 + 1;
+        var y = (random.Next(0, height / 2)) * 2 + 1;
         map[x, y] = CellType.Clear;
 
         // Создаем список ячеек для проверки
@@ -87,7 +84,7 @@ public class MazeGenerator
         while (toCheck.Count > 0)
         {
             // Выбираем случайную ячейку
-            int index = random.Next(toCheck.Count);
+            var index = random.Next(toCheck.Count);
             Point cell = toCheck[index];
             x = cell.X;
             y = cell.Y;
@@ -134,26 +131,26 @@ public class MazeGenerator
 
         // Создаем список направлений и перемешиваем его
         List<int> directions = new List<int> { 0, 1, 2, 3 };
-        for (int i = directions.Count - 1; i > 0; i--)
+        for (var i = directions.Count - 1; i > 0; i--)
         {
-            int j = random.Next(i + 1);
-            int temp = directions[i];
+            var j = random.Next(i + 1);
+            var temp = directions[i];
             directions[i] = directions[j];
             directions[j] = temp;
         }
 
-        foreach (int dir in directions)
+        foreach (var dir in directions)
         {
-            int newX = x + dx[dir];
-            int newY = y + dy[dir];
+            var newX = x + dx[dir];
+            var newY = y + dy[dir];
 
             if (newX >= 1 && newX < width - 1 && newY >= 1 && newY < height - 1)
             {
                 if (map[newX, newY] == CellType.Clear)
                 {
                     // Очищаем ячейку между текущей и найденной
-                    int wallX = x + dx[dir] / 2;
-                    int wallY = y + dy[dir] / 2;
+                    var wallX = x + dx[dir] / 2;
+                    var wallY = y + dy[dir] / 2;
                     map[wallX, wallY] = CellType.Clear;
                     return;
                 }
@@ -168,7 +165,7 @@ public class MazeGenerator
         List<Point> possibleEnds = new List<Point>();
 
         // Проверяем верхнюю границу (y = 0)
-        for (int x = 1; x < width - 1; x += 2)
+        for (var x = 1; x < width - 1; x += 2)
         {
             if (map[x, 1] == CellType.Clear)
             {
@@ -177,7 +174,7 @@ public class MazeGenerator
         }
 
         // Проверяем нижнюю границу (y = height - 1)
-        for (int x = 1; x < width - 1; x += 2)
+        for (var x = 1; x < width - 1; x += 2)
         {
             if (map[x, height - 2] == CellType.Clear)
             {
@@ -186,7 +183,7 @@ public class MazeGenerator
         }
 
         // Проверяем левую границу (x = 0)
-        for (int y = 1; y < height - 1; y += 2)
+        for (var y = 1; y < height - 1; y += 2)
         {
             if (map[1, y] == CellType.Clear)
             {
@@ -195,7 +192,7 @@ public class MazeGenerator
         }
 
         // Проверяем правую границу (x = width - 1)
-        for (int y = 1; y < height - 1; y += 2)
+        for (var y = 1; y < height - 1; y += 2)
         {
             if (map[width - 2, y] == CellType.Clear)
             {
@@ -237,13 +234,13 @@ public class MazeGenerator
         List<Point> deadEnds = new List<Point>();
 
         // Находим тупики
-        for (int h = 1; h < height - 1; h++)
+        for (var h = 1; h < height - 1; h++)
         {
-            for (int w = 1; w < width - 1; w++)
+            for (var w = 1; w < width - 1; w++)
             {
                 if (map[w, h] == CellType.Clear)
                 {
-                    int neighbors = CountClearNeighbors(w, h);
+                    var neighbors = CountClearNeighbors(w, h);
                     if (neighbors == 1)  // Только один выход - тупик
                     {
                         deadEnds.Add(new Point(w, h));
@@ -253,8 +250,8 @@ public class MazeGenerator
         }
 
         // Удаляем половину тупиков для лучшего заполнения
-        int toRemove = Math.Min(deadEnds.Count / 2, deadEnds.Count);
-        for (int i = 0; i < toRemove; i++)
+        var toRemove = Math.Min(deadEnds.Count / 2, deadEnds.Count);
+        for (var i = 0; i < toRemove; i++)
         {
             Point cell = deadEnds[i];
             map[cell.X, cell.Y] = CellType.Wall;
@@ -281,7 +278,7 @@ public class MazeGenerator
     private void EnsurePointAccessibility(Point point)
     {
         // Проверяем, есть ли доступные соседи
-        int accessibleNeighbors = CountAccessibleNeighbors(point.X, point.Y);
+        var accessibleNeighbors = CountAccessibleNeighbors(point.X, point.Y);
 
         // Если нет доступных соседей, создаем проход
         if (accessibleNeighbors == 0)
@@ -325,14 +322,14 @@ public class MazeGenerator
 
     private int CountAccessibleNeighbors(int x, int y)
     {
-        int neighbors = 0;
+        var neighbors = 0;
         int[] dx = { 0, 0, -1, 1 };
         int[] dy = { -1, 1, 0, 0 };
 
-        for (int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
-            int newX = x + dx[i];
-            int newY = y + dy[i];
+            var newX = x + dx[i];
+            var newY = y + dy[i];
 
             if (newX >= 0 && newX < width && newY >= 0 && newY < height)
             {
@@ -348,14 +345,14 @@ public class MazeGenerator
 
     private int CountClearNeighbors(int x, int y)
     {
-        int neighbors = 0;
+        var neighbors = 0;
         int[] dx = { 0, 0, -1, 1 };
         int[] dy = { -1, 1, 0, 0 };
 
-        for (int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
-            int newX = x + dx[i];
-            int newY = y + dy[i];
+            var newX = x + dx[i];
+            var newY = y + dy[i];
 
             if (newX >= 0 && newX < width && newY >= 0 && newY < height)
             {
@@ -372,9 +369,9 @@ public class MazeGenerator
     // Метод для отображения карты
     public void PrintMap(Point playerPosition = null)
     {
-        for (int h = 0; h < height; h++)
+        for (var h = 0; h < height; h++)
         {
-            for (int w = 0; w < width; w++)
+            for (var w = 0; w < width; w++)
             {
                 // Проверяем, находится ли игрок в этой позиции
                 if (playerPosition != null && playerPosition.X == w && playerPosition.Y == h)
@@ -407,9 +404,9 @@ public class MazeGenerator
     // Получить координаты начала и конца
     public Point GetStartPoint()
     {
-        for (int h = 0; h < height; h++)
+        for (var h = 0; h < height; h++)
         {
-            for (int w = 0; w < width; w++)
+            for (var w = 0; w < width; w++)
             {
                 if (map[w, h] == CellType.Start)
                 {
@@ -422,9 +419,9 @@ public class MazeGenerator
 
     public Point GetEndPoint()
     {
-        for (int h = 0; h < height; h++)
+        for (var h = 0; h < height; h++)
         {
-            for (int w = 0; w < width; w++)
+            for (var w = 0; w < width; w++)
             {
                 if (map[w, h] == CellType.End)
                 {

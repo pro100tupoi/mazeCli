@@ -57,7 +57,7 @@ public class Game
         Console.WriteLine("\nВведите направление (W/A/S/D) или Q для выхода:");
 
         ConsoleKeyInfo keyInfo = Console.ReadKey();
-        char key = keyInfo.KeyChar;
+        var key = keyInfo.KeyChar;
 
         if (key == 'q' || key == 'Q')
         {
@@ -66,7 +66,7 @@ public class Game
         }
         else
         {
-            bool moved = player.Move(key);
+            var moved = player.Move(key);
             if (!moved)
             {
                 Console.WriteLine("\nНевозможно двигаться в этом направлении!");
